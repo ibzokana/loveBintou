@@ -1,0 +1,714 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&display=swap');
+
+/* Reset et styles de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: url('1.png'), auto !important;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Georgia', serif;
+    background-color: #0f3b25;
+    position: relative;
+    padding: 20px;
+}
+
+/* Vidéo de fond */
+#background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -100;
+}
+
+.video-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 59, 37, 0.4);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Conteneur principal du livre */
+.book {
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+    height: 550px;
+    transition: transform 0.5s, box-shadow 0.5s;
+    perspective: 2000px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border-radius: 10px;
+    background-color: #fffaf0;
+    z-index: 1;
+    margin: 0 auto;
+}
+
+.book:hover {
+    transform: scale(1.02) rotateY(2deg);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+}
+
+/* Spirale du livre */
+.spiral {
+    position: absolute;
+    width: 25px;
+    height: 95%;
+    top: 2.5%;
+    left: 0;
+    transform: translateX(-50%);
+    background: repeating-linear-gradient(to bottom, #ffffff, #ffffff 15px, #C41E3A 15px, #C41E3A 30px);
+    z-index: 100;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+    border-radius: 5px;
+}
+
+.back-cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #8b0000;
+    border-radius: 10px;
+    border-left: 1px solid #C41E3A;
+    z-index: -1;
+}
+
+/* Pages */
+.paper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transform-style: preserve-3d;
+    transform-origin: left;
+    transition: transform 0.6s ease-in-out;
+}
+
+.paper.flipped {
+    transform: rotateY(-180deg);
+}
+
+.front, .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-left: 1px solid #e0c9a6;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backface-visibility: hidden;
+    background-color: #fffaf0;
+    background-image: url('fondo.png');
+    background-size: contain;
+    background-position: center;
+    border: 1px solid #e6dace;
+    overflow: hidden;
+}
+
+.front {
+    z-index: 1;
+}
+
+.back {
+    transform: rotateY(180deg);
+    z-index: 0;
+}
+
+/* Contenu des pages */
+.front-content, .back-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 30px;
+    position: relative;
+}
+
+.page-main-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow: hidden;
+}
+
+/* Typographie */
+h1, h2 {
+    font-family: 'Dancing Script', cursive;
+    color: #C41E3A;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    margin-bottom: 15px;
+    text-align: center;
+    width: 100%;
+    word-wrap: break-word;
+    padding: 0 10px;
+}
+
+h1 {
+    font-size: 1.6rem;
+}
+
+h2 {
+    font-size: 1.8rem;
+    color: #165B33;
+}
+
+p {
+    color: #4a4a4a;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    padding: 0 15px;
+    margin-bottom: 20px;
+    font-weight: bolder;
+    text-align: center;
+    width: 100%;
+    word-wrap: break-word;
+}
+
+/* Conteneur d'images */
+.image-container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0;
+    overflow: hidden;
+    max-height: 60%;
+}
+
+.cover-image, .page-image {
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    display: block;
+    margin: 0 auto;
+}
+
+.cover-image {
+    width: 85%;
+    border-radius: 10px;
+    border: 5px solid white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.page-image {
+    width: 90%;
+    background: white;
+    border: 8px solid white;
+    border-radius: 3px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.25);
+}
+
+.cover-image:hover, .page-image:hover {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 8px 25px rgba(196, 30, 58, 0.3);
+}
+
+/* Boutons de navigation */
+.next-btn, .prev-btn {
+    position: absolute;
+    bottom: 25px;
+    background-color: #165B33;
+    color: #fffaf0;
+    border: 1px solid #0f3b25;
+    padding: 10px 25px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Georgia', serif;
+    font-size: 0.95rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    transition: background-color 0.3s, transform 0.2s;
+    z-index: 2001;
+    white-space: nowrap;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.next-btn:hover, .prev-btn:hover {
+    background-color: #C41E3A;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(196, 30, 58, 0.4);
+}
+
+.next-btn {
+    right: 20px;
+}
+
+.prev-btn {
+    left: 20px;
+}
+
+/* Bouton menu mobile */
+.mobile-menu-btn {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #C41E3A;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    z-index: 1000;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Contrôles audio */
+.audio-controls {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    background: rgba(22, 91, 51, 0.9);
+    padding: 12px 15px;
+    border-radius: 25px;
+    z-index: 1000;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border: 2px solid #C41E3A;
+    max-width: 90%;
+}
+
+.music-btn {
+    background: #C41E3A;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+}
+
+.music-btn:hover {
+    background: #A0172D;
+    transform: translateY(-2px);
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 5px 10px;
+    border-radius: 15px;
+}
+
+.volume-control i {
+    color: white;
+    font-size: 0.9rem;
+}
+
+#volume-slider {
+    width: 80px;
+    height: 5px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: white;
+    border-radius: 3px;
+    outline: none;
+}
+
+#volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #C41E3A;
+    cursor: pointer;
+    border: 2px solid white;
+}
+
+/* Popup audio */
+.audio-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 59, 37, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    display: none;
+}
+
+.popup-content {
+    background: linear-gradient(135deg, #165B33, #0f3b25);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    border: 3px solid #C41E3A;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.popup-content i {
+    font-size: 3rem;
+    color: #C41E3A;
+    margin-bottom: 15px;
+}
+
+.popup-content h3 {
+    color: white;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.popup-content p {
+    color: #fffaf0;
+    margin-bottom: 20px;
+}
+
+.activate-btn {
+    background: #C41E3A;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 auto;
+}
+
+.activate-btn:hover {
+    background: #A0172D;
+    transform: scale(1.05);
+}
+
+.small-text {
+    font-size: 0.8rem !important;
+    opacity: 0.8;
+    margin-top: 15px !important;
+}
+
+/* ============================
+   RESPONSIVE DESIGN
+   ============================ */
+
+/* Tablettes (768px et moins) */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        align-items: flex-start;
+        padding-top: 60px;
+    }
+    
+    .book {
+        width: 90vw;
+        height: 70vh;
+        min-height: 500px;
+        margin-top: 20px;
+    }
+    
+    .front-content, .back-content {
+        padding: 20px 15px;
+    }
+    
+    .page-main-content {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 1.4rem !important;
+        margin-bottom: 10px;
+    }
+    
+    h2 {
+        font-size: 1.5rem !important;
+    }
+    
+    p {
+        font-size: 0.85rem !important;
+        padding: 0 10px;
+        margin-bottom: 15px;
+    }
+    
+    .image-container {
+        max-height: 50%;
+        margin: 10px 0;
+    }
+    
+    .cover-image {
+        width: 90%;
+        margin-top: -10px;
+    }
+    
+    .page-image {
+        width: 95%;
+    }
+    
+    .next-btn, .prev-btn {
+        padding: 8px 20px;
+        font-size: 0.85rem;
+        bottom: 15px;
+        min-width: 120px;
+    }
+    
+    .next-btn {
+        right: 15px;
+    }
+    
+    .prev-btn {
+        left: 15px;
+    }
+    
+    .spiral {
+        width: 20px;
+        height: 92%;
+        top: 4%;
+    }
+    
+    .mobile-menu-btn {
+        display: flex;
+    }
+    
+    .audio-controls {
+        bottom: 10px;
+        right: 10px;
+        left: 10px;
+        justify-content: center;
+        padding: 10px;
+    }
+}
+
+/* Téléphones (480px et moins) */
+@media (max-width: 480px) {
+    .book {
+        width: 95vw;
+        height: 65vh;
+        min-height: 450px;
+    }
+    
+    h1 {
+        font-size: 1.2rem !important;
+        padding: 0 5px;
+    }
+    
+    h2 {
+        font-size: 1.3rem !important;
+    }
+    
+    p {
+        font-size: 0.8rem !important;
+        line-height: 1.4;
+        padding: 0 5px;
+    }
+    
+    .front-content, .back-content {
+        padding: 15px 10px;
+    }
+    
+    .image-container {
+        max-height: 45%;
+    }
+    
+    .cover-image {
+        width: 95%;
+        margin-top: -5px;
+        border-width: 3px;
+    }
+    
+    .page-image {
+        border-width: 5px;
+    }
+    
+    .next-btn, .prev-btn {
+        padding: 6px 15px;
+        font-size: 0.75rem;
+        bottom: 10px;
+        min-width: 110px;
+    }
+    
+    .next-btn {
+        right: 10px;
+    }
+    
+    .prev-btn {
+        left: 10px;
+    }
+    
+    .spiral {
+        width: 15px;
+        transform: translateX(-30%);
+    }
+    
+    .book:hover {
+        transform: scale(1) rotateY(0deg);
+    }
+    
+    .audio-controls {
+        flex-direction: column;
+        align-items: stretch;
+        width: auto;
+        right: 10px;
+        left: auto;
+    }
+    
+    .volume-control {
+        order: -1;
+        margin-bottom: 5px;
+    }
+}
+
+/* Très petits téléphones (360px et moins) */
+@media (max-width: 360px) {
+    .book {
+        height: 60vh;
+        min-height: 400px;
+    }
+    
+    h1 {
+        font-size: 1rem !important;
+    }
+    
+    h2 {
+        font-size: 1.1rem !important;
+    }
+    
+    p {
+        font-size: 0.75rem !important;
+    }
+    
+    .next-btn, .prev-btn {
+        padding: 5px 12px;
+        font-size: 0.7rem;
+        min-width: 100px;
+    }
+    
+    .mobile-menu-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+}
+
+/* Orientation paysage sur mobile */
+@media (max-height: 600px) and (orientation: landscape) {
+    .book {
+        height: 85vh;
+        max-height: 350px;
+        width: 70vw;
+    }
+    
+    .front-content, .back-content {
+        padding: 10px 15px;
+    }
+    
+    p {
+        margin-bottom: 10px;
+    }
+    
+    .image-container {
+        max-height: 40%;
+    }
+    
+    .cover-image {
+        max-height: 35%;
+        margin-top: -5px;
+    }
+}
+
+/* Pour les écrans très larges */
+@media (min-width: 1200px) {
+    .book {
+        max-width: 500px;
+        height: 600px;
+    }
+    
+    h1 {
+        font-size: 1.8rem !important;
+    }
+    
+    h2 {
+        font-size: 2rem !important;
+    }
+    
+    p {
+        font-size: 1rem !important;
+    }
+}
+
+/* Correction pour éviter le débordement sur mobile */
+@media (max-width: 768px) {
+    * {
+        max-width: 100%;
+    }
+    
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+/* Amélioration de l'accessibilité tactile sur mobile */
+@media (max-width: 768px) {
+    .next-btn, .prev-btn {
+        min-height: 40px;
+        min-width: 120px;
+    }
+    
+    button {
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    button:active {
+        transform: scale(0.95);
+    }
+}
