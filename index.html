@@ -1,160 +1,37 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Nuestra Navidad Juntos by AlexDev</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Maintenance</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            text-align: center;
+        }
+        .box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #666;
+        }
+    </style>
 </head>
 <body>
-    <!-- Contrôles audio visibles -->
-    <div class="audio-controls">
-        <button id="play-music-btn" class="music-btn">
-            <i class="fas fa-play"></i> Activer la musique
-        </button>
-        <button id="mute-music-btn" class="music-btn" style="display:none;">
-            <i class="fas fa-volume-mute"></i> Muet
-        </button>
-        <button id="unmute-music-btn" class="music-btn">
-            <i class="fas fa-volume-up"></i> Son
-        </button>
-        <div class="volume-control">
-            <i class="fas fa-volume-down"></i>
-            <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.7">
-            <i class="fas fa-volume-up"></i>
-        </div>
+    <div class="box">
+        <h1>🚧 Site en maintenance</h1>
+        <p>Le site sera disponible très bientôt.</p>
+        <p>Merci de votre compréhension.</p>
     </div>
-
-    <!-- Bouton menu mobile -->
-    <button class="mobile-menu-btn" aria-label="Menu mobile">
-        <i class="fas fa-bars"></i>
-    </button>
-
-    <!-- Vidéo de fond -->
-    <video id="background-video" autoplay loop muted playsinline>
-        <source src="video3.mp4" type="video/mp4">
-        Votre navigateur ne supporte pas la vidéo.
-    </video>
-
-    <!-- Overlay pour améliorer la lisibilité -->
-    <div class="video-overlay"></div>
-
-    <!-- Livre principal -->
-    <div id="book" class="book">
-        <!-- Spirale du livre -->
-        <div class="spiral" aria-hidden="true"></div>
-        
-        <!-- Couverture arrière -->
-        <div class="back-cover" aria-hidden="true"></div>
-
-        <!-- Page 1 -->
-        <div id="p1" class="paper">
-            <div class="front">
-                <div id="f1" class="front-content">
-                    <div class="page-main-content">
-                        <h1><i class="fas fa-star"></i> BB Bintou, Mon Étoile de l'Année <i class="fas fa-star"></i></h1>
-                        <p>BB Bintou, que cette nouvelle année 2026 t'apporte tout ce qu'il y a de plus doux : la santé, la paix, le bonheur et la réussite dans tout ce que ton cœur désire. <i class="fas fa-gift"></i></p>
-                        <div class="image-container">
-                            <img src="bintou1.jpg" alt="Portrait de BB Bintou" class="cover-image">
-                        </div>
-                    </div>
-                    <button class="next-btn" aria-label="Page suivante">
-                        Ma Bintou chérie <i class="fas fa-heart"></i> &rarr;
-                    </button>
-                </div>
-            </div>
-            <div class="back">
-                <div id="b1" class="back-content">
-                    <div class="page-main-content">
-                        <h2><i class="fas fa-rose"></i> Mon Amour, Mon Année <i class="fas fa-sparkles"></i></h2>
-                        <p>BB Bintou 🌹, Alors que l'année s'achève 🎆, mon amour pour toi ❤️, lui, ne fait que grandir 🌱💫 et ouvrir un nouveau chapitre 📖✨. Tu as rempli mes journées de sourire 😊🌷, de paix ☮️🕊️ et de force 💪🌟. Je te porte dans mon cœur 💓 comme une lumière qui ne s'éteint jamais 🌟🔥. Merci d'exister 🙏💖, merci d'être toi 🌸💛</p>
-                    </div>
-                    <button class="prev-btn" aria-label="Page précédente">
-                        &larr; Mon trésor Bintou <i class="fas fa-heart"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Page 2 -->
-        <div id="p2" class="paper">
-            <div class="front">
-                <div id="f2" class="front-content">
-                    <div class="page-main-content">
-                        <div class="image-container">
-                            <img src="bintou2.jpg" alt="Moment spécial avec Bintou" class="page-image">
-                        </div>
-                    </div>
-                    <button class="next-btn" aria-label="Page suivante">
-                        Ma perle Bintou <i class="fas fa-gem"></i> &rarr;
-                    </button>
-                </div>
-            </div>
-            <div class="back">
-                <div id="b2" class="back-content">
-                    <div class="page-main-content">
-                        <div class="image-container">
-                            <img src="bintou3.jpg" alt="Souvenir heureux avec Bintou" class="page-image">
-                        </div>
-                    </div>
-                    <button class="prev-btn" aria-label="Page précédente">
-                        &larr; Ma douce Bintou <i class="fas fa-blossom"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Page 3 -->
-        <div id="p3" class="paper">
-            <div class="front">
-                <div id="f3" class="front-content">
-                    <div class="page-main-content">
-                        <h2><i class="fas fa-snowflake"></i> Au Revoir 2025, Bonjour Notre Amour Éternel <i class="fas fa-snowflake"></i></h2>
-                        <p>BB Bintou 🌟, mon étoile ✨, Ton nom danse dans mon âme 💃❤️, Comme un souffle doux 🌬️💖, Comme un rêve qui ne finit pas 🌙💫. Si l'année finit 🎆, mon amour lui continue 💌, Fort 💪, sincère 🤍 et vrai 🌹, Toujours vers toi 🌸💛.</p>
-                    </div>
-                    <button class="next-btn" aria-label="Page suivante">
-                        Mon étoile Bintou <i class="fas fa-star"></i> &rarr;
-                    </button>
-                </div>
-            </div>
-            <div class="back">
-                <div id="b3" class="back-content">
-                    <div class="page-main-content">
-                        <h1><i class="fas fa-tree"></i> Bon fin d'annees, Mon Amour <i class="fas fa-tree"></i></h1>
-                        <p>Taï dinalà wah loumalà meussoul wah !! 🤫 Nouboumala pour foo ak yaw 🙏 Noboumala pour weétaliku 🙏 Damalà beug ndah téé thi sa wét lay amé DIAME ak DOLÉ 🕊️💪 Faaté samay problème 😌 wayé it damala beug ndah souma néké ak yaw dara dotouma amal diarigne koudoul yaw Je t'aime ❤️💖 Ma Bintou, Ma cousine love ❤️💖 sama OUROUL ayni, sama arva, sama khadijatou ❤️⛄</p>
-                        <div class="image-container">
-                            <img src="bintou4.jpg" alt="Dernière image spéciale avec Bintou" class="cover-image">
-                        </div>
-                    </div>
-                    <button class="prev-btn" aria-label="Page précédente">
-                        &larr; Mon ange Bintou <i class="fas fa-angel"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Musique de fonds -->
-    <audio id="background-music" loop preload="auto">
-        <source src="./audios/malamom.mp3" type="audio/mpeg">
-        <source src="music.ogg" type="audio/ogg">
-        Votre navigateur ne supporte pas la lecture audio.
-    </audio>
-
-    <!-- Popup d'activation audio -->
-    <div id="audio-popup" class="audio-popup">
-        <div class="popup-content">
-            <i class="fas fa-music"></i>
-            <h3>Éternel, Hatik🎵</h3>
-            <p>Cliquez sur le bouton ci-dessous pour activer la musique d'ambiance</p>
-            <button id="activate-audio-btn" class="activate-btn">
-                <i class="fas fa-play-circle"></i> Activer la musique
-            </button>
-            <p class="small-text">(La musique commencera après votre interaction)</p>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
 </body>
 </html>
